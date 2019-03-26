@@ -15,12 +15,31 @@ function displayBoard(array) {
 }
 displayBoard(board)
 
+//choose player mode
+let ansMode = parseInt(question("1 Player or 2 Players?\n"))
+if (ansMode == 1) {
+  console.log(ansMode + " Player mode choosen. Player B will be in random move.")
+} else {
+  console.log(ansMode + " Players mode choosen.")
+
+}
+
 //alternate turn between player
 while (moves > 0) {
   let cellSymbol = myTurn ? "x" : "o"
   currentPlayer = myTurn ? "Player A" : "Player B"
+  let ansMove
 
-  let ansMove = parseInt(question(currentPlayer + " turn. Choose your cell number.\n"))
+  //1 player or 2 players input
+  if (ansMode == 1 && !myTurn) {
+    ansMove = Math.floor(Math.random() * 9)
+    console.log("Player B choose " + ansMove)
+  }
+  else {
+    ansMove = parseInt(question(currentPlayer + "'s turn. Choose your cell number.\n"))
+  }
+
+  //validate player's input
   if (isNaN(ansMove) || ansMove < 0 || ansMove > 8) {
     console.log("Wrong move")
   }
